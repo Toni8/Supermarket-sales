@@ -1,0 +1,94 @@
+-- Disable safe update mode
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE supermarket_sales
+SET datetime = STR_TO_DATE(CONCAT(`Date`, ' ', `Time`), '%Y-%m-%d %H:%i')
+WHERE datetime IS NULL;
+
+-- Add day_of_week column if it doesn't exist
+ALTER TABLE supermarket_sales
+ADD COLUMN day_of_week VARCHAR(10);
+
+-- Add month column if it doesn't exist
+ALTER TABLE supermarket_sales
+ADD COLUMN month VARCHAR(10);
+
+-- Now update the columns
+UPDATE supermarket_sales
+SET 
+    day_of_week = DAYNAME(datetime),
+    month = MONTHNAME(datetime);
+    
+-- Clean string fields
+UPDATE supermarket_sales
+SET 
+    `Invoice ID` = TRIM(`Invoice ID`),
+    `Branch` = TRIM(`Branch`),
+    `City` = TRIM(`City`),
+    `Customer type` = TRIM(`Customer type`),
+    `Gender` = TRIM(`Gender`),
+    `Product line` = TRIM(`Product line`),
+    `Payment` = TRIM(`Payment`);
+
+-- Handle NULL values
+UPDATE supermarket_sales
+SET 
+    `Unit price` = COALESCE(`Unit price`, 0),
+    `Quantity` = COALESCE(`Quantity`, 0),
+    `Tax 5%` = COALESCE(`Tax 5%`, 0),
+    `Total` = COALESCE(`Total`, 0),
+    `cogs` = COALESCE(`cogs`, 0),
+    `gross margin percentage` = COALESCE(`gross margin percentage`, 0),
+    `gross income` = COALESCE(`gross income`, 0),
+    `Rating` = COALESCE(`Rating`, 0);
+
+-- Check for duplicate Invoice IDs
+SELECT `Invoice ID`, COUNT(*) 
+FROM supermarket_sales 
+GROUP BY `Invoice ID` 
+HAVING COUNT(*) > 1;
+
+-- Check for outliers
+SELECT * FROM supermarket_sales 
+WHERE `Unit price` < 0 OR `Quantity` < 0 OR `Tax 5%` < 0 OR `Total` < 0 
+    OR `cogs` < 0 OR `gross margin percentage` < 0 OR `gross income` < 0 
+    OR `Rating` < 0 OR `Rating` > 10;
+
+-- Sales by product line
+CREATE OR REPLACE VIEW sales_by_product_line AS
+SELECT `Product line`, SUM(`Total`) as total_sales, AVG(`Rating`) as avg_rating
+FROM supermarket_sales
+GROUP BY `Product line`;
+
+
+-- Sales by branch
+CREATE OR REPLACE VIEW sales_by_branch AS
+SELECT `Branch`, `City`, SUM(`Total`) as total_sales, COUNT(DISTINCT `Invoice ID`) as num_transactions
+FROM supermarket_sales
+GROUP BY `Branch`, `City`;
+
+-- Customer type analysis
+CREATE OR REPLACE VIEW customer_type_analysis AS
+SELECT `Customer type`, `Gender`, AVG(`Total`) as avg_purchase, AVG(`Rating`) as avg_rating
+FROM supermarket_sales
+GROUP BY `Customer type`, `Gender`;
+
+-- Time-based analysis
+CREATE OR REPLACE VIEW time_based_analysis AS
+SELECT DATE(datetime) as date, DAYOFMONTH(datetime) as day, MONTH(datetime) as month, YEAR(datetime) as year,
+       SUM(`Total`) as daily_sales, COUNT(DISTINCT `Invoice ID`) as num_transactions
+FROM supermarket_sales
+GROUP BY DATE(datetime), DAYOFMONTH(datetime), MONTH(datetime), YEAR(datetime);
+
+-- change the data typer of the view time_based_analysis for powerbi
+USE supermarket_sales_database;
+CREATE OR REPLACE VIEW supermarket_sales_database.time_based_analysis AS
+SELECT 
+    DATE(datetime) as date,
+    DAYOFMONTH(datetime) as day,
+    MONTH(datetime) as month,
+    YEAR(datetime) as year,
+    CAST(SUM(Total) AS DECIMAL(10,2)) as daily_sales,
+    COUNT(DISTINCT `Invoice ID`) as num_transactions
+FROM supermarket_sales
+GROUP BY DATE(datetime), DAYOFMONTH(datetime), MONTH(datetime), YEAR(datetime);
