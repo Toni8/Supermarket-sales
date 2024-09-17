@@ -42,20 +42,10 @@ Created interactive dashboards showcasing:
 - Implement the predictive model to forecast sales peaks.
 
 ## How to Use This Repository
-
 1. **Data**: The cleaned datasets and SQL views are available in the `data` folder.
 2. **Visualizations**: Power BI dashboard files can be found in the `powerbi` folder.
 3. **Documentation**: Detailed analysis reports and insights are in the `docs` folder.
-4. **Scripts**: 
-   - SQL scripts used for data cleaning are in the `sql_scripts` folder.
-   - A Python notebook (`predictive_model.ipynb`) for building and training the sales prediction model is located in the `python_scripts` folder.
-5. **Models**: Trained machine learning models will be saved in the `models` folder.
-
-To run the predictive model:
-1. Ensure you have Python installed with necessary libraries (requirements listed in `requirements.txt`).
-2. Open the `predictive_model.ipynb` notebook in Jupyter or your preferred Python IDE.
-3. Follow the step-by-step instructions in the notebook to load data, train the model, and make predictions.
-
+4. **Scripts**: Any SQL scripts used for data cleaning are in the `sql_scripts` folder.
 
 
 ## License
