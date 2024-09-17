@@ -6,7 +6,7 @@ This project presents a comprehensive analysis of supermarket sales data across 
 ## Tools and Technologies
 - **MySQL**: Used for data cleaning and preparation of the original dataset.
 - **Microsoft Power BI**: Employed for creating interactive dashboards and visualizations.
-- **Python** (planned): To be used for predictive modeling of sales peaks.
+- **Python**: Used for predictive modeling of sales peaks.
 
 ## Data Source
 The dataset includes sales information from three branches of a supermarket chain, covering various aspects such as:
@@ -30,7 +30,7 @@ Created interactive dashboards showcasing:
 
 ### 3. Predictive Modeling (Planned)
 - Will use the `time_based_analysis` dataset to build a model for predicting peak sales dates.
-- Techniques under consideration: Machine Learning algorithms suitable for time-series prediction.
+- Techniques used: Machine Learning algorithms suitable for time-series prediction.
 
 ## Key Insights
 1. **Branch Performance**: Comparative analysis of sales and efficiency across three branches.
@@ -38,8 +38,6 @@ Created interactive dashboards showcasing:
 3. **Customer Behavior**: Analysis of purchasing patterns between member and non-member customers.
 4. **Temporal Patterns**: Recognition of daily, weekly, and monthly sales trends.
 
-## Future Work
-- Implement the predictive model to forecast sales peaks.
 
 ## How to Use This Repository
 
@@ -49,7 +47,7 @@ Created interactive dashboards showcasing:
 4. **Scripts**: 
    - SQL scripts used for data cleaning are in the `sql_scripts` folder.
    - A Python notebook (`predictive_model.ipynb`) for building and training the sales prediction model is located in the `python_scripts` folder.
-5. **Models**: Trained machine learning models will be saved in the `models` folder.
+5. **Models**: Trained machine learning models will be saved in the `models` folder inside the `python_scripts` folder..
 
 To run the predictive model:
 1. Ensure you have Python installed with necessary libraries (requirements listed in `requirements.txt`).
