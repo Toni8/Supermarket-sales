@@ -1,64 +1,132 @@
-# Supermarket Sales Analysis and Prediction
+# Supermarket Sales Analysis & Prediction
 
-## Project Overview
-This project presents a comprehensive analysis of supermarket sales data across three branches over a three-month period. Utilizing a combination of data cleaning, visualization, and predictive modeling techniques, we aim to uncover valuable insights and forecast future sales trends in a competitive market environment.
+> Comprehensive analysis of supermarket sales across 3 branches over 3 months —  
+> combining MySQL data cleaning, Python EDA & visualizations, and ML-based  
+> sales peak prediction.
 
-## Tools and Technologies
-- **MySQL**: Used for data cleaning and preparation of the original dataset.
-- **Microsoft Power BI**: Employed for creating interactive dashboards and visualizations.
-- **Python**: Used for predictive modeling of sales peaks.
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat-square)
+![MySQL](https://img.shields.io/badge/MySQL-Data%20Cleaning-lightblue?style=flat-square)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Predictive%20Model-orange?style=flat-square)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualizations-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=flat-square)
 
-## Data Source
-The dataset includes sales information from three branches of a supermarket chain, covering various aspects such as:
-- Customer types
-- Product lines
-- Branch-specific performance
-- Daily sales figures
+---
+
+## Overview
+
+This project delivers an end-to-end analysis of a supermarket chain's sales data across
+three branches. Starting with SQL-based data cleaning, moving through exploratory analysis
+and visual storytelling in Python, and culminating in a predictive model for forecasting
+peak sales periods — the goal is to surface actionable insights for inventory planning,
+staffing, and marketing strategy.
+
+---
 
 ## Project Phases
 
-### 1. Data Cleaning and Preparation (MySQL)
-- Cleaned and structured the raw data.
-- Created views for different analysis perspectives, including the `time_based_analysis` view for time series analysis.
+### Phase 1 — Data Cleaning (MySQL)
+- Cleaned and structured raw transactional sales data
+- Handled nulls, duplicates, and inconsistent formatting
+- Created SQL views for targeted analysis perspectives, including
+  `time_based_analysis` for time-series work downstream
 
-### 2. Data Visualization (Power BI)
-Created interactive dashboards showcasing:
-- Time-based sales trends
-- Customer segmentation analysis
-- Product line performance
-- Branch-wise comparisons
+### Phase 2 — Exploratory Analysis & Visualizations (Python)
+All visualizations built with **Matplotlib** and **Seaborn** across four analysis areas:
 
-### 3. Predictive Modeling (Planned)
-- Will use the `time_based_analysis` dataset to build a model for predicting peak sales dates.
-- Techniques used: Machine Learning algorithms suitable for time-series prediction.
+**Branch performance**
+- Revenue and transaction volume by branch (A, B, C)
+- Branch efficiency comparisons over the 3-month window
+
+**Product line analysis**
+- Top and bottom performing product categories
+- Revenue share per product line per branch
+
+**Customer behaviour**
+- Purchasing patterns: member vs. non-member customers
+- Average basket size and visit frequency by customer type
+
+**Temporal trends**
+- Daily, weekly, and monthly sales patterns
+- Peak sales day identification across branches
+- Time-of-day transaction distribution
+
+### Phase 3 — Predictive Modelling (Python / Scikit-Learn)
+- Built on the `time_based_analysis` SQL view as the modelling dataset
+- Trained ML models to forecast peak sales dates
+- Evaluated using MAE and RMSE across time-series cross-validation splits
+
+> Status: In progress — model training notebook available in `python_scripts/`
+
+---
 
 ## Key Insights
-1. **Branch Performance**: Comparative analysis of sales and efficiency across three branches.
-2. **Product Trends**: Identification of top-performing product lines and customer preferences.
-3. **Customer Behavior**: Analysis of purchasing patterns between member and non-member customers.
-4. **Temporal Patterns**: Recognition of daily, weekly, and monthly sales trends.
 
+| Area | Finding |
+|---|---|
+| Branch performance | Branch-level variance in revenue and transaction efficiency identified |
+| Product trends | Top-performing product lines and customer preferences surfaced |
+| Customer behaviour | Clear spending differences between member and non-member segments |
+| Temporal patterns | Recurring daily and weekly sales peaks identified across branches |
 
-## How to Use This Repository
+---
 
-1. **Data**: The cleaned datasets and SQL views are available in the `data` folder.
-2. **Visualizations**: Power BI dashboard files can be found in the `powerbi` folder.
-3. **Documentation**: Detailed analysis reports and insights are in the `docs` folder.
-4. **Scripts**: 
-   - SQL scripts used for data cleaning are in the `sql_scripts` folder.
-   - A Python notebook (`predictive_model.ipynb`) for building and training the sales prediction model is located in the `python_scripts` folder.
-5. **Models**: Trained machine learning models will be saved in the `models` folder inside the `python_scripts` folder..
+## Repository Structure
 
-To run the predictive model:
-1. Ensure you have Python installed with necessary libraries (requirements listed in `requirements.txt`).
-2. Open the `predictive_model.ipynb` notebook in Jupyter or your preferred Python IDE.
-3. Follow the step-by-step instructions in the notebook to load data, train the model, and make predictions.
+```
+supermarket-sales/
+├── data/                          # Cleaned datasets and exported SQL views
+├── sql_scripts/                   # MySQL cleaning scripts and view definitions
+├── python_scripts/
+│   ├── predictive_model.ipynb     # ML model for peak sales prediction
+│   └── models/                    # Saved trained model files
+├── docs/                          # Analysis reports and insight summaries
+├── requirements.txt               # Python dependencies
+└── LICENSE.md
+```
 
+---
 
+## How to Run
+
+```bash
+# Clone the repo
+git clone https://github.com/Toni8/<Supermarket-sales>.git
+cd supermarket-sales
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Or manually
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+**Run the analysis notebooks:**
+```bash
+jupyter notebook python_scripts/predictive_model.ipynb
+```
+
+**Recreate the SQL views:**
+Open any MySQL client, connect to your database, and run the scripts in `sql_scripts/` in order.
+
+---
+
+## Tech Stack
+
+`Python` · `Pandas` · `Matplotlib` · `Seaborn` · `Scikit-Learn` · `MySQL` · `Jupyter`
+
+---
+
+## Data Source
+
+Dataset covers 3 months of transactional sales data across 3 supermarket branches,
+including customer type, product line, branch, payment method, and daily sales figures.
+
+---
 
 ## License
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
 
-## Acknowledgments
-- Thanks to [Data Source Provider] for the initial dataset.
-- Appreciation to the open-source community for the tools and libraries used in this project.
+MIT License — see `LICENSE.md` for details.
+
+---
+
+*Built by [Sihle Kalolo](https://github.com/Toni8) · [Portfolio](https://sihle-kalolo-portfolio.vercel.app/)*
